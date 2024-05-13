@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "891232843357",
+    "project_id": "lords-palace-app",
+    "storage_bucket": "lords-palace-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891232843357:android:4213b11919a1a33feeffb4",
+        "android_client_info": {
+          "package_name": "com.lorqioa.lords.utils"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvzh0GKwMDVCprw0P097Z2PAK02QNkuvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

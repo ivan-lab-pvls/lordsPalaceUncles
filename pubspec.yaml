@@ -1,0 +1,73 @@
+name: lords_palace_app
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.3 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  auto_route: ^8.0.3
+  flutter_bloc: ^8.1.5
+  flutter_svg: ^2.0.10+1
+  shared_preferences: ^2.2.3
+
+  percent_indicator: ^4.2.3
+  smooth_page_indicator: ^1.1.0
+  flutter_countdown_timer: ^4.1.0
+  flutter_fortune_wheel: ^1.3.1
+
+  firebase_messaging: ^14.2.2
+  firebase_core: ^2.21.0
+  firebase_remote_config: ^4.3.3
+
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  auto_route_generator: ^8.0.0
+  build_runner: ^2.4.9
+
+  flutter_lints: ^3.0.0
+
+
+flutter:
+
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/images/loading/
+    - assets/images/home/
+    - assets/images/elements/
+    - assets/images/daily-reward/
+    - assets/images/settings/
+    - assets/images/fortune/
+    - assets/images/magic-kitchen/
+    - assets/images/magic-kitchen/board/
+    - assets/images/archaeologists/
+    - assets/images/archaeologists/board/
+    - assets/images/mysterious/
+    - assets/images/mysterious/board/
+
+
+  fonts:
+    - family: Rubik
+      fonts:
+        - asset: fonts/Rubik-Black.ttf
+        - asset: fonts/Rubik-ExtraBold.ttf
+        - asset: fonts/Rubik-Bold.ttf
+        - asset: fonts/Rubik-SemiBold.ttf
+        - asset: fonts/Rubik-Medium.ttf
+        - asset: fonts/Rubik-Regular.ttf
+        - asset: fonts/Rubik-Light.ttf
