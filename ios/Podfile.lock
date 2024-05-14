@@ -1,4 +1,12 @@
 PODS:
+  - app_tracking_transparency (0.0.1):
+    - Flutter
+  - appsflyer_sdk (6.14.3):
+    - AppsFlyerFramework (= 6.14.3)
+    - Flutter
+  - AppsFlyerFramework (6.14.3):
+    - AppsFlyerFramework/Main (= 6.14.3)
+  - AppsFlyerFramework/Main (6.14.3)
   - Firebase/CoreOnly (10.25.0):
     - FirebaseCore (= 10.25.0)
   - Firebase/Messaging (10.25.0):
@@ -51,6 +59,15 @@ PODS:
   - FirebaseRemoteConfigInterop (10.25.0)
   - FirebaseSharedSwift (10.25.0)
   - Flutter (1.0.0)
+  - flutter_inappwebview_ios (0.0.1):
+    - Flutter
+    - flutter_inappwebview_ios/Core (= 0.0.1)
+    - OrderedSet (~> 5.0)
+  - flutter_inappwebview_ios/Core (0.0.1):
+    - Flutter
+    - OrderedSet (~> 5.0)
+  - flutter_local_notifications (0.0.1):
+    - Flutter
   - GoogleDataTransport (9.4.1):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30911.0, >= 2.30908.0)
@@ -85,20 +102,26 @@ PODS:
     - nanopb/encode (= 2.30910.0)
   - nanopb/decode (2.30910.0)
   - nanopb/encode (2.30910.0)
+  - OrderedSet (5.0.0)
   - PromisesObjC (2.4.0)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
 
 DEPENDENCIES:
+  - app_tracking_transparency (from `.symlinks/plugins/app_tracking_transparency/ios`)
+  - appsflyer_sdk (from `.symlinks/plugins/appsflyer_sdk/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - firebase_remote_config (from `.symlinks/plugins/firebase_remote_config/ios`)
   - Flutter (from `Flutter`)
+  - flutter_inappwebview_ios (from `.symlinks/plugins/flutter_inappwebview_ios/ios`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
 
 SPEC REPOS:
   trunk:
+    - AppsFlyerFramework
     - Firebase
     - FirebaseABTesting
     - FirebaseCore
@@ -111,9 +134,14 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleUtilities
     - nanopb
+    - OrderedSet
     - PromisesObjC
 
 EXTERNAL SOURCES:
+  app_tracking_transparency:
+    :path: ".symlinks/plugins/app_tracking_transparency/ios"
+  appsflyer_sdk:
+    :path: ".symlinks/plugins/appsflyer_sdk/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_messaging:
@@ -122,10 +150,17 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_remote_config/ios"
   Flutter:
     :path: Flutter
+  flutter_inappwebview_ios:
+    :path: ".symlinks/plugins/flutter_inappwebview_ios/ios"
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
 
 SPEC CHECKSUMS:
+  app_tracking_transparency: e169b653478da7bb15a6c61209015378ca73e375
+  appsflyer_sdk: e59c6b99ce2f28b93fe6b3045a97e8e1a20bce97
+  AppsFlyerFramework: 0a68f5b72bbbadfa71d4ae3eaf040e82d62e8518
   Firebase: 0312a2352584f782ea56f66d91606891d4607f06
   firebase_core: 0b39f4f424e02eecabb2356ddf331fa07b772af8
   firebase_messaging: 8999827b6efc9c3ab4b1f9dc246deaa7f13dbf88
@@ -139,9 +174,12 @@ SPEC CHECKSUMS:
   FirebaseRemoteConfigInterop: b25018791b204c0d78a90e394d6c62d9b1f22da8
   FirebaseSharedSwift: 0274086954b1b2d5fd7e829eccc587044d72a4ba
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_inappwebview_ios: 97215cf7d4677db55df76782dbd2930c5e1c1ea0
+  flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
   GoogleUtilities: c56430aef51a1aa57b25da78c3f8397e522c67b7
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
+  OrderedSet: aaeb196f7fef5a9edf55d89760da9176ad40b93c
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
 
