@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+
 import 'package:lords_palace_app/firebase_options.dart';
 import 'package:lords_palace_app/lords_palace_app.dart';
 import 'package:lords_palace_app/screens/settings/fortune_game/fortune_game_bloc/fortune_game_bloc.dart';
@@ -17,19 +18,20 @@ import 'package:lords_palace_app/widgets/daily_reward/daily_reward_bloc/daily_re
 
 late AppsflyerSdk _appsflyerSdk;
 String adId = '';
-bool stat = false;
-String paramsFirst = '';
-String paramsSecond = '';
+bool _isFirstLaunch = false;
+String dexsc = '';
+String authxa = '';
+String _afStatus = '';
 Map _deepLinkData = {};
 Map _gcd = {};
-bool _isFirstLaunch = false;
-String _afStatus = '';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FirebaseRemoteConfig.instance.setConfigSettings(RemoteConfigSettings(
     fetchTimeout: const Duration(seconds: 25),
@@ -37,7 +39,10 @@ Future<void> main() async {
   ));
   await FirebaseRemoteConfig.instance.fetchAndActivate();
   await NotificationsActivation().activate();
+
   await getTracking();
+  await initAppsflyerSdk();
+
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider<CoinsBloc>(create: (context) => CoinsBloc()),
@@ -48,14 +53,17 @@ Future<void> main() async {
       future: checkModelsForRepair(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-            color: Colors.white,
-          );
+          return Container(color: Colors.white);
         } else {
           if (snapshot.data == true && repairData != '') {
             return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                home: PolicyScreen(dataForPage: repairData));
+              debugShowCheckedModeBanner: false,
+              home: PolicyScreen(
+                dataForPage: repairData,
+                par1: dexsc,
+                apxId: adId,
+              ),
+            );
           } else {
             return LordsPalaceApp();
           }
@@ -71,11 +79,21 @@ Future<void> getTracking() async {
   print(status);
 }
 
-Future<void> adsax() async {
+Future<void> fetchDatax() async {
+  try {
+    adId = await _appsflyerSdk.getAppsFlyerUID() ?? '';
+    adId = '&appsflyer_id=$adId';
+    print("AppsFlyer ID: $adId");
+  } catch (e) {
+    print("Failed to get AppsFlyer ID: $e");
+  }
+}
+
+Future<void> initAppsflyerSdk() async {
   final AppsFlyerOptions options = AppsFlyerOptions(
     showDebug: false,
-    afDevKey: 'knxyqhoEmbXe4zrXV6ocB7',
-    appId: '6502386291',
+    afDevKey: 'EjB2oxnrzjoLfcdgoJtWFh',
+    appId: '6481530232',
     timeToWaitForATTUserAuthorization: 15,
     disableAdvertisingIdentifier: false,
     disableCollectASA: false,
@@ -88,9 +106,10 @@ Future<void> adsax() async {
     registerOnAppOpenAttributionCallback: true,
     registerOnDeepLinkingCallback: true,
   );
+
   _appsflyerSdk.onAppOpenAttribution((res) {
     _deepLinkData = res;
-    paramsSecond = res['payload']
+    authxa = res['payload']
         .entries
         .where((e) => ![
               'install_time',
@@ -101,11 +120,13 @@ Future<void> adsax() async {
         .map((e) => '&${e.key}=${e.value}')
         .join();
   });
+
   _appsflyerSdk.onInstallConversionData((res) {
     _gcd = res;
     _isFirstLaunch = res['payload']['is_first_launch'];
     _afStatus = res['payload']['af_status'];
-    paramsFirst = '&is_first_launch=$_isFirstLaunch&af_status=$_afStatus';
+    dexsc = '&is_first_launch=$_isFirstLaunch&af_status=$_afStatus';
+    print(dexsc);
   });
 
   _appsflyerSdk.onDeepLinking((DeepLinkResult dp) {
@@ -125,25 +146,23 @@ Future<void> adsax() async {
         break;
     }
     print("onDeepLinking res: " + dp.toString());
-
     _deepLinkData = dp.toJson();
   });
 
   _appsflyerSdk.startSDK(
     onSuccess: () {
-      _appsflyerSdk.logEvent("testEventNotForAnalytics", {
-        "id": {'id': adId},
-      });
       print("AppsFlyer SDK initialized successfully.");
     },
   );
+  await fetchDatax();
 }
 
 String repairData = '';
 Future<bool> checkModelsForRepair() async {
   final fetchNx = FirebaseRemoteConfig.instance;
   await fetchNx.fetchAndActivate();
-  adsax();
+  await initAppsflyerSdk();
+  await fetchDatax();
   String cdsfgsd = fetchNx.getString('lords');
   String cdsfgsdx = fetchNx.getString('palace');
   if (!cdsfgsd.contains('nothing')) {
@@ -162,8 +181,11 @@ Future<bool> checkModelsForRepair() async {
 
 class PolicyScreen extends StatefulWidget {
   final String dataForPage;
+  final String par1;
+  final String apxId;
 
-  PolicyScreen({required this.dataForPage});
+  PolicyScreen(
+      {required this.dataForPage, required this.par1, required this.apxId});
 
   @override
   State<PolicyScreen> createState() => _PolicyScreenState();
@@ -171,20 +193,22 @@ class PolicyScreen extends StatefulWidget {
 
 class _PolicyScreenState extends State<PolicyScreen> {
   @override
-  void iniState() {
+  void initState() {
     super.initState();
     getTracking();
-    adsax();
+    initAppsflyerSdk();
   }
 
   @override
   Widget build(BuildContext context) {
+    final completeUrl = '${widget.dataForPage}${widget.apxId}${widget.par1}';
     return Scaffold(
+      backgroundColor: Colors.black,
       body: SafeArea(
         bottom: false,
         child: InAppWebView(
           initialUrlRequest: URLRequest(
-            url: WebUri(widget.dataForPage),
+            url: WebUri(completeUrl),
           ),
         ),
       ),
