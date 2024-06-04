@@ -39,10 +39,8 @@ Future<void> main() async {
   ));
   await FirebaseRemoteConfig.instance.fetchAndActivate();
   await NotificationsActivation().activate();
-
   await getTracking();
   await initAppsflyerSdk();
-
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider<CoinsBloc>(create: (context) => CoinsBloc()),
@@ -93,7 +91,7 @@ Future<void> initAppsflyerSdk() async {
   final AppsFlyerOptions options = AppsFlyerOptions(
     showDebug: false,
     afDevKey: 'EjB2oxnrzjoLfcdgoJtWFh',
-    appId: '6481530232',
+    appId: '6502386291',
     timeToWaitForATTUserAuthorization: 15,
     disableAdvertisingIdentifier: false,
     disableCollectASA: false,
