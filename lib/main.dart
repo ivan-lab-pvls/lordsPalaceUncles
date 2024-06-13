@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -69,6 +70,31 @@ Future<void> main() async {
       },
     ),
   ));
+}
+
+class Messaging {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+  void initMessaging() {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      // Handle foreground messages
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      // Handle when a user taps on a notification
+      print('Message clicked!');
+    });
+  }
+
+  Future<String?> getToken() async {
+    return await _firebaseMessaging.getToken();
+  }
 }
 
 Future<void> getTracking() async {
